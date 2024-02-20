@@ -1,0 +1,42 @@
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+
+
+/arte-sania/node_modules
+/arte-sania/.pnp
+/arte-sania/.pnp.js
+
+# testing
+/arte-sania/coverage
+
+# production
+/arte-sania/build
+
+# misc
+/arte-sania/.DS_Store
+/arte-sania/.env.local
+/arte-sania/.env.development.local
+/arte-sania/.env.test.local
+/arte-sania/.env.production.local
+
+./arte-sania/npm-debug.log*
+./arte-sania/yarn-debug.log*
+./arte-sania/yarn-error.log*
+
