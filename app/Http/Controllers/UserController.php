@@ -19,9 +19,10 @@ class UserController extends Controller
 
         $carrito = Carrito::getCarritoInfo($user->id);
 
+
         return response()->json([
            'user' => $userData,
-            'carrito' => $carrito->idCarrito
+            'carrito' => $carrito == null ? null : $carrito->idCarrito
         ]);
     }
 }

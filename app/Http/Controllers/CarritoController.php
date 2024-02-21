@@ -29,8 +29,9 @@ class CarritoController extends Controller
             $lineaCarrito['idCarrito'] = $request->tokenCarrito;
 
         }else{
-
-            $idUser = auth('sanctum')->user()->id;
+            if(auth('sanctum')->user() !== null){
+                $idUser = auth('sanctum')->user()->id;
+            }
             $tokenCarrito = $this->createCarrito($idUser);
             $lineaCarrito['idCarrito'] =  $tokenCarrito;
         }
@@ -43,6 +44,11 @@ class CarritoController extends Controller
             'idCarrito' => $tokenCarrito,
             'idUser' => $idUser
         ]);
+    }
+
+    public function cambiarCarrito(Request $request){
+        $user = Auth::user()->id;
+        Carrito::cambiarCarrito($request->carrito,$user);
     }
 
     public function getCarrito($id){

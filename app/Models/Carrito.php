@@ -44,6 +44,11 @@ class Carrito extends Model
         return $total;
     }
 
+    public static function cambiarCarrito($idCarrito, $idUser){
+        DB::table('carrito')->where('idUser', $idUser)->delete();
+        DB::table('carrito')->where('idCarrito', $idCarrito)->update(['idUser' => $idUser]);
+    }
+
     public static function checkAddProducto($idProducto, $idCarrito, $cantidad){
         $cantidadActual = Db::table('lineacarrito')->select('cantidad')->where('idProducto', $idProducto)->where('idCarrito', $idCarrito)->first();
 

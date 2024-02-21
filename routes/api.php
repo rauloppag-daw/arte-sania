@@ -28,7 +28,7 @@ Route::post('/addProducto', [Controllers\CarritoController::class, 'addProductTo
 
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('/usuario', [Controllers\UserController::class, 'obtenerUsuario']);
-
+    Route::post('/cambiarCarrito', [Controllers\CarritoController::class, 'cambiarCarrito']);
     Route::get('/logout', [Controllers\AutenticarController::class, 'logout']);
 });
 

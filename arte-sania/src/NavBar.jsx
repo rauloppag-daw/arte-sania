@@ -13,7 +13,9 @@ export default function NavBar(){
                 </ul>
             </nav>
             <div className="flex justify-end w-5/12">
+                <Link to={'/carrito'}>
                 <ShoppingCart className="w-10 h-10" fill="white" color="white" />
+                </Link>
             </div>
         </header>
     );

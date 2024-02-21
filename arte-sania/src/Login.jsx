@@ -12,7 +12,6 @@ export default function Login({ }) {
         console.log(sessionStorage.getItem('token'));
         if(token != null){
             return navigate('/perfil')
-            //comentando
         }
     },[])
 
@@ -28,7 +27,9 @@ export default function Login({ }) {
 
         if(connection.ok){
             let data = await connection.json();
+            
             sessionStorage.setItem('token', data.token);
+
             return navigate('/perfil', {
                 replace: true
             });

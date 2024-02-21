@@ -8,6 +8,7 @@ export default function Perfil(){
 
     const [user, setUser] = useState([]);
     const navigate = useNavigate();
+    const [carritos, setCarritos] = useState([]);
 
     
 
@@ -16,8 +17,6 @@ export default function Perfil(){
 
         async function obtenerUsuario(){
             let token  = sessionStorage.getItem('token');
-
-            
                 let connection = await fetch('http://localhost/arte-sania/public/api/usuario', {
                     method: 'GET',
                     headers:{
@@ -28,6 +27,7 @@ export default function Perfil(){
                 if(connection.ok){
                     let data = await connection.json();
                     setUser(data.user);
+                    comprobarCarrito(data.carrito);
                 }else{
                     return navigate('/login');
                 }
@@ -38,6 +38,74 @@ export default function Perfil(){
             obtenerUsuario();
         }
     },[]);
+
+    function comprobarCarrito(carritoUser){
+        
+        let tokenSinUser = sessionStorage.getItem('carrito');
+        
+        if(tokenSinUser !== null && carritoUser !== null){
+            if(tokenSinUser != carritoUser){
+                setCarritos([
+                    tokenSinUser,
+                    carritoUser
+                ])
+                document.getElementById('carritos').style.display = 'flex';
+            }
+        }else{
+            
+        }
+    }
+
+    const selectCarrito = (carrito) => {
+        console.log(carrito);
+        if(carrito != sessionStorage.getItem('carrito')){
+            cambiarCarrito(carrito);
+        }
+        document.getElementById('carritos').style.display = 'none';
+    }
+
+    async function cambiarCarrito(carrito){
+        let token = sessionStorage.getItem('token');
+        let connection = await fetch('http://localhost/arte-sania/public/api/cambiarCarrito',{
+            method: 'POST',
+             headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+             },
+             body : JSON.stringify({
+                'carrito' : carrito
+             }),
+        });
+
+        if(connection.ok){
+            sessionStorage.setItem('carrito', carrito);
+        }
+    }
+
+    async function logout(){
+        let token = sessionStorage.getItem('token')
+        let connection = await fetch('http://localhost/arte-sania/public/api/logout',
+            {
+                method : 'GET',
+                'headers' : {
+                    'Authorization' : `Bearer ${token}`
+                }
+            }
+        )
+
+        if(connection.ok){
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('carrito');
+            return navigate('/login', {
+                replace : true
+            });
+        }
+    }
+
+    const logoutClick = ()=>{
+        logout();
+    }
 
     return(
         <div className="h-full w-full">
@@ -51,8 +119,12 @@ export default function Perfil(){
                     
                     <p className="text-4xl font-openbold text-yellow-800">{user.nombre}</p>
                     <p className="text-xl">{user.email}</p>
-                    
+                    <button className="bg-yellow-900 rounded-xl text-white font-openbold px-4 py-2" onClick={logoutClick}>Log Out</button>
                     </div>
+            </div>
+            <div id="carritos" className="outline outline-1 outline-yellow-900 p-4 flex justify-around">
+                <button onClick={()=> selectCarrito(carritos[1])} >Carrito anterior</button>
+                <button onClick={()=> selectCarrito(carritos[0])}>Carrito nuevo</button>
             </div>
             <Pedidos user={user.id} ></Pedidos>
         </div>

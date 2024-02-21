@@ -1,11 +1,51 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Producto({data}){
 
+    const navigate = useNavigate();
+
+    async function addProducto(){
+        let tokenCarrito = sessionStorage.getItem('carrito');
+        let token = sessionStorage.getItem('token');
+        let headers = '';
+        if(token == null){
+            headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        }else{
+            headers = {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            }
+        }
+
+        let connection = await fetch('http://localhost/arte-sania/public/api/addProducto', {
+            method : 'POST',
+            headers: headers,
+            body: JSON.stringify({
+                'tokenCarrito' : tokenCarrito,
+                'idProducto' : data.idProducto,
+                'cantidad': 1
+            })
+        });
+
+        if(connection.ok){
+            let data = await connection.json();
+
+            if(tokenCarrito == null){
+                sessionStorage.setItem('carrito', data.idCarrito);
+            }
+            
+            return navigate('/carrito');
+        }
+
+    }
+
     const comprar = (e) => {
         e.preventDefault();
-        alert('hola');
-        
+        addProducto()
     }
 
     return (
