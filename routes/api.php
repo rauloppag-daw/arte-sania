@@ -22,8 +22,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/registrar', [\App\Http\Controllers\AutenticarController::class, 'registrar']);
 Route::post('/login', [\App\Http\Controllers\AutenticarController::class, 'login']);
 
+
+Route::get('/carrito/{id}', [Controllers\CarritoController::class, 'getCarrito']);
+Route::post('/addProducto', [Controllers\CarritoController::class, 'addProductToCarrito']);
+
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('/usuario', [Controllers\UserController::class, 'obtenerUsuario']);
+
+    Route::get('/logout', [Controllers\AutenticarController::class, 'logout']);
 });
 
 

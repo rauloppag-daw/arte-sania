@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrito;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,10 +17,11 @@ class UserController extends Controller
             'imgProfile' => asset('storage/imgProducts/notFound.jpg')
         );
 
+        $carrito = Carrito::getCarritoInfo($user->id);
+
         return response()->json([
-           'user' => $userData
+           'user' => $userData,
+            'carrito' => $carrito->idCarrito
         ]);
-
-
     }
 }
