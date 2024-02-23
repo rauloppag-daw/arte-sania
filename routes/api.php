@@ -25,10 +25,16 @@ Route::post('/login', [\App\Http\Controllers\AutenticarController::class, 'login
 
 Route::get('/carrito/{id}', [Controllers\CarritoController::class, 'getCarrito']);
 Route::post('/addProducto', [Controllers\CarritoController::class, 'addProductToCarrito']);
+Route::post('/quitar-linea', [Controllers\CarritoController::class, 'quitarLinea']);
 
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('/usuario', [Controllers\UserController::class, 'obtenerUsuario']);
+    Route::post('/asignarCarrito', [Controllers\CarritoController::class, 'asignarCarrito']);
     Route::post('/cambiarCarrito', [Controllers\CarritoController::class, 'cambiarCarrito']);
+
+    Route::get('/realizar-pedido', [Controllers\PedidoController::class, 'doCompra']);
+    Route::get('/obtener-pedidos', [Controllers\PedidoController::class, 'getPedidoConLineas']);
+
     Route::get('/logout', [Controllers\AutenticarController::class, 'logout']);
 });
 

@@ -6,6 +6,7 @@ import DetalleProducto from './DetalleProducto';
 import Login from './Login';
 import Perfil from './Perfil';
 import Carrito from './Carrito';
+import Registro from './Registro'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
       <Route path='/login' element={<Login />}></Route>
       <Route path='/perfil' element={<Perfil />}></Route>
       <Route path='/carrito' element={<Carrito />}></Route>
+      <Route path='/registro' element={<Registro />}></Route>
     </Route>
   )
 );

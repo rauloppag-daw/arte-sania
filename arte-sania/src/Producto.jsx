@@ -7,6 +7,7 @@ export default function Producto({data}){
     async function addProducto(){
         let tokenCarrito = sessionStorage.getItem('carrito');
         let token = sessionStorage.getItem('token');
+        
         let headers = '';
         if(token == null){
             headers = {
