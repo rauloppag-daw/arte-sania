@@ -4,9 +4,10 @@ export default function Pedidos() {
 
     const token = sessionStorage.getItem('token');
     const [pedidos, setPedidos] = useState([]);
+    const dominio = window.dominio;
     useEffect(() => {
         async function obtenerPedidos() {
-            let connection = await fetch('http://localhost/arte-sania/public/api/obtener-pedidos',
+            let connection = await fetch(dominio +'/public/api/obtener-pedidos',
                 {
                     method: 'GET',
                     headers:

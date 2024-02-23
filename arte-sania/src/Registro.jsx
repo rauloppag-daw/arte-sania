@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 export default function Registro({ }) {
     const navigate = useNavigate();
+    const dominio = window.dominio;
 
 
     useEffect(()=>{
@@ -15,7 +16,7 @@ export default function Registro({ }) {
     },[])
 
     async function registro(nombre, email, password){
-        let connection = await fetch('http://localhost/arte-sania/public/api/registrar', {
+        let connection = await fetch( dominio +'/public/api/registrar', {
             method : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -52,7 +53,10 @@ export default function Registro({ }) {
             <NavBar />
             <div className="w-full flex justify-center mt-20 h-88">
                 <div className="w-6/12 flex justify-center">
-                <form id="form" onSubmit={enviarForm} className="outline outline-2 outline-yellow-900 p-10 rounded-lg">
+                <form id="form" onSubmit={enviarForm} className="outline outline-2 outline-yellow-900 p-10 rounded-lg relative">
+                <div className="bg-yellow-900  absolute inset-0 h-8 w-full ">
+                        <h2 className="text-center text-white text-lg">Registro de Usuario</h2>
+                    </div>
                 <p className="text-center w-full text-yellow-900 text-2xl">Nombre</p>
                     <input type="text" id="nombre" className="outline-yellow-900 outline outline-1 rounded-md w-80 text-2xl" />
                     <br />

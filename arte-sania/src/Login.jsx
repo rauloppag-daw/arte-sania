@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function Login({ }) {
     const navigate = useNavigate();
 
-
+    const dominio = window.dominio;
     useEffect(()=>{
         let token = sessionStorage.getItem('token');
         if(token != null){
@@ -15,7 +15,7 @@ export default function Login({ }) {
     },[])
 
     async function login(email, password){
-        let connection = await fetch('http://localhost/arte-sania/public/api/login', {
+        let connection = await fetch(dominio +'/public/api/login', {
             method : 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -52,8 +52,11 @@ export default function Login({ }) {
             <NavBar />
             <div className="w-full flex justify-center mt-20 h-88">
                 <div className="w-6/12 flex justify-center">
-                <form id="form" onSubmit={enviarForm} className="outline outline-2 outline-yellow-900 p-10 rounded-lg">
-                    <p className="text-center w-full text-yellow-900 text-2xl">Email</p>
+                <form id="form" onSubmit={enviarForm} className="outline outline-2 outline-yellow-900 p-10 rounded-lg relative">
+                    <div className="bg-yellow-900  absolute inset-0 h-8 w-full ">
+                        <h2 className="text-center text-white text-lg">Iniciar Sesión</h2>
+                    </div>
+                    <p className="text-center pt-2 w-full text-yellow-900 text-2xl">Email</p>
                     <input type="email" id="email" className="outline-yellow-900 outline outline-1 rounded-md w-80 text-2xl" />
                     <br />
                     <br />

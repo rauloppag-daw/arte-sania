@@ -45,7 +45,13 @@ class Pedido extends Model
                 Db::table('productos')->where('idProducto', $c->idProducto)->update(['visible' =>  0]);
             }
         }
+        $lineasPedidoRetorno = DB::table('lineapedido as l')->join('productos as p', 'l.idProducto', 'p.idProducto')->where('idPedido', $pedido)->get();
+        return $lineasPedidoRetorno;
 
+    }
+
+    public static function getPedido($idPedido){
+        return DB::table('pedido')->where('idPedido', $idPedido)->first();
     }
 
     public static function getPedidos($idUser){

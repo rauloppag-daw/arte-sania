@@ -25,7 +25,7 @@ class ProductosController extends Controller
             $imagenes = array();
 
             if(count($directorio) == 0){
-                array_push($imagenes, asset('storage/imgProducts/notFound.jpg'));
+                array_push($imagenes, '');
             }else{
                 foreach ($directorio as $img){
                     array_push($imagenes,asset( 'storage/'. $img ));
@@ -50,7 +50,7 @@ class ProductosController extends Controller
             $imagenes = array();
 
             if(count($directorio) == 0){
-                array_push($imagenes, asset('storage/imgProducts/notFound.jpg'));
+                array_push($imagenes, '');
             }else{
                 foreach ($directorio as $img){
                     array_push($imagenes,asset( 'storage/'. $img ));

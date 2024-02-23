@@ -8,11 +8,12 @@ export default function Carrito() {
     const [updated, setUpdated] = useState(0);
     const [total, setTotal] = useState(0);
     let navigate  = useNavigate();
+    const dominio = window.dominio;
 
     useEffect(() => {
         async function getCarritoAll() {
             let tokenCarrito = sessionStorage.getItem('carrito');
-            let connection = await fetch('http://localhost/arte-sania/public/api/carrito/' + tokenCarrito);
+            let connection = await fetch(dominio +'/public/api/carrito/' + tokenCarrito);
             if (connection.ok) {
                 let data = await connection.json();
                 setCarrito(data.carrito);
@@ -25,7 +26,7 @@ export default function Carrito() {
 
     async function doCompra(){
         let token = sessionStorage.getItem('token');
-        let connection = await fetch('http://localhost/arte-sania/public/api/realizar-pedido',
+        let connection = await fetch(dominio +'/public/api/realizar-pedido',
             {
                 method : 'GET',
                 headers: 
@@ -53,7 +54,7 @@ export default function Carrito() {
     }
 
     async function quitarLinea(idLinea){
-        let connection = await fetch('http://localhost/arte-sania/public/api/quitar-linea', {
+        let connection = await fetch(dominio +'/public/api/quitar-linea', {
             method :'POST',
             headers: {
                 'Accept': 'application/json',

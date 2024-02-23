@@ -6,12 +6,13 @@ import { Truck } from "react-feather";
 export default function DetalleProducto() {
     const id = useParams();
     const navigate = useNavigate();
+    const dominio = window.dominio;
 
     const [datos, setDatos] = useState([]);
 
     useEffect(() => {
         async function obtenerDatos() {
-            let connection = await fetch('http://localhost/arte-sania/public/api/producto/' + id.id);
+            let connection = await fetch(dominio +'/public/api/producto/' + id.id);
             if (connection.ok) {
                 let data = await connection.json();
                 setDatos(data[0]);
@@ -55,7 +56,7 @@ export default function DetalleProducto() {
             }
         }
 
-        let connection = await fetch('http://localhost/arte-sania/public/api/addProducto', {
+        let connection = await fetch(dominio +'/public/api/addProducto', {
             method : 'POST',
             headers: headers,
             body: JSON.stringify({
@@ -89,14 +90,15 @@ export default function DetalleProducto() {
             <NavBar />
             <main className="flex w-full  justify-center pt-2 mt-4">
                 <div className="w-11/12 bg-orange-50  h-full flex">
-                    <div id="gallery" className="w-5/12 h-full flex overflow-hidden aspect-square object-contain">
+                    <div id="gallery" className={`w-5/12 h-full flex overflow-hidden aspect-square object-contain ${datos.imagenes != undefined && datos.imagenes[0] == '' && 'bg-gray-200 animate-pulse'} `}>
                         {
                         datos.imagenes != undefined ? 
+                        datos.imagenes[0] != '' &&
                         datos.imagenes.map((img,i) => {
                             return <img key={i} className="h-full w-full p-2 object-cover" src={img} />
                         }  ) : ''}
                     </div>
-                    <div className="w-7/12 h-full">
+                    <div className="w-7/12 h-full ml-4 ">
                         <p className="text-gray-600 text-xl italic">{datos.nombreCategoria}</p>
                         <h1 className="text-4xl font-openbold pt-4 text-yellow-900 h-24">{datos.nombreProducto}</h1>
                         <p className="text-3xl text-red-600">{datos.precio} €</p>

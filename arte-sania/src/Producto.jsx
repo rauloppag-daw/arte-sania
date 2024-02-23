@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function Producto({data}){
 
     const navigate = useNavigate();
+    const dominio = window.dominio;
 
     async function addProducto(){
         let tokenCarrito = sessionStorage.getItem('carrito');
@@ -22,7 +23,7 @@ export default function Producto({data}){
             }
         }
 
-        let connection = await fetch('http://localhost/arte-sania/public/api/addProducto', {
+        let connection = await fetch(dominio +'/public/api/addProducto', {
             method : 'POST',
             headers: headers,
             body: JSON.stringify({
@@ -50,11 +51,11 @@ export default function Producto({data}){
     }
 
     return (
-        <Link to={`producto/${data.idProducto}`} className="border border-gray-300 rounded-xl h- w-56 p-2">
-            <div className={` h-2/5 w-full flex ${data.imagenes.length > 0 ? 'overflow-x-scroll' : 'overflow-x-hidden'}  rounded-lg scrollbar-hide `}>
-                {data.imagenes.map((img) => {
+        <Link to={`producto/${data.idProducto}`} className="border border-gray-300 rounded-xl h-96 w-56 p-2 ">
+            <div className={`h-2/5 w-full flex  rounded-lg  overflow-hidden ${data.imagenes[0] == '' && 'bg-gray-200 animate-pulse'} `}>
+                {data.imagenes[0] != '' ?   data.imagenes.map((img) => {
                     return <img className="h-full w-full object-cover" src={img} />
-                })}
+                }) : ''}
                 
             </div>
             <div className="font-bold text-lg h-1/5">

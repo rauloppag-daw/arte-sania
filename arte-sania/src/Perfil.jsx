@@ -9,6 +9,7 @@ export default function Perfil() {
     const [user, setUser] = useState([]);
     const navigate = useNavigate();
     const [carritos, setCarritos] = useState([]);
+    const dominio = window.dominio;
 
 
 
@@ -17,7 +18,7 @@ export default function Perfil() {
 
         async function obtenerUsuario() {
             let token = sessionStorage.getItem('token');
-            let connection = await fetch('http://localhost/arte-sania/public/api/usuario', {
+            let connection = await fetch(dominio +'/public/api/usuario', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -70,7 +71,7 @@ export default function Perfil() {
 
     async function cambiarCarrito(carrito) {
         let token = sessionStorage.getItem('token');
-        let connection = await fetch('http://localhost/arte-sania/public/api/cambiarCarrito', {
+        let connection = await fetch(dominio +'/public/api/cambiarCarrito', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -90,7 +91,7 @@ export default function Perfil() {
 
     async function asignarCarrito(carrito) {
         let token = sessionStorage.getItem('token');
-        let connection = await fetch('http://localhost/arte-sania/public/api/asignarCarrito', {
+        let connection = await fetch(dominio +'/public/api/asignarCarrito', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -109,7 +110,7 @@ export default function Perfil() {
 
     async function logout() {
         let token = sessionStorage.getItem('token')
-        let connection = await fetch('http://localhost/arte-sania/public/api/logout',
+        let connection = await fetch(dominio +'/public/api/logout',
             {
                 method: 'GET',
                 'headers': {
