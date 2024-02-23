@@ -31,7 +31,8 @@ class Producto extends Model
         $productos = DB::table('productos as p')
             ->select('p.*', 'ccaa.nombreCCAA', 'c.nombreCategoria', 'ccaa.thumbCCAA')
             ->join('categorias as c', 'p.categoria', 'c.idCategoria')
-            ->join('comunidades_autonomas as ccaa', 'p.origen', 'ccaa.idCCAA' );
+            ->join('comunidades_autonomas as ccaa', 'p.origen', 'ccaa.idCCAA' )
+            ->where('visible', 1);
 
 
             if(isset($id)){

@@ -64,6 +64,12 @@ class CarritoController extends Controller
         $carrito = Carrito::getCarrito($id);
         $total = Carrito::obtenerTotal($id);
 
+        foreach ($carrito as $c){
+            if($c->stock <= 0){
+                unset($c);
+            }
+        }
+
         return response()->json([
             'carrito' => $carrito,
             'total' => $total->total

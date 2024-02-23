@@ -40,6 +40,10 @@ class Pedido extends Model
                 ]);
                 DB::table('productos')->where('idProducto', $c->idProducto)->update(['stock' => 0]);
             }
+            $producto = DB::table('productos')->where('idProducto', $c->idProducto)->first();
+            if($producto->stock <= 0){
+                Db::table('productos')->where('idProducto', $c->idProducto)->update(['visible' =>  0]);
+            }
         }
 
     }

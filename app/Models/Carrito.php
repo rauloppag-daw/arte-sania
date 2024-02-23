@@ -32,10 +32,10 @@ class Carrito extends Model
     public static function getCarrito($id)
     {
         $carrito = DB::table('lineacarrito as l')
-            ->select('p.idProducto', 'l.idLinea', 'p.nombreProducto', 'l.cantidad', 'p.precio', DB::raw('SUM(p.precio * l.cantidad) as subtotal'))
+            ->select('p.idProducto', 'l.idLinea', 'p.nombreProducto', 'l.cantidad', 'p.precio', 'p.stock', DB::raw('SUM(p.precio * l.cantidad) as subtotal'))
             ->join('productos as p', 'l.idProducto', 'p.idProducto')
             ->where('idCarrito', $id)
-            ->groupBy('p.idProducto', 'p.nombreProducto', 'l.cantidad', 'p.precio', 'l.idLinea')
+            ->groupBy('p.idProducto', 'p.nombreProducto', 'l.cantidad', 'p.precio', 'l.idLinea', 'p.stock')
             ->get();
         return $carrito;
     }

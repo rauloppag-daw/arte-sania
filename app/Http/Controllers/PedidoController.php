@@ -18,6 +18,7 @@ class PedidoController extends Controller
         $pedido = Pedido::createPedido($user->id, $total);
         Pedido::passCarritoToPedido($carritoContenido, $pedido);
         Carrito::deleteCarrito($user->id);
+
     }
 
     public function getPedidoConLineas(){
